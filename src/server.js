@@ -42,10 +42,10 @@ app.post('/produtos/:email', async (req, res) => {
   const { nome, descricao, numero, preco, estabelecimento, dataHora } = req.body;
 
   // Verificação de número com código do país
-  const numeroValido = /^\d{10,11}$/.test(numero); 
-  if (!numeroValido) {
-    return res.status(400).send('Número inválido! O número deve ter 10 ou 11 dígitos (ex: 6133445555 para telefone ou 619911112222 para celular');
-  }
+  // const numeroValido = /^\d{10,11}$/.test(numero); 
+  // if (!numeroValido) {
+  //   return res.status(400).send('Número inválido! O número deve ter 10 ou 11 dígitos (ex: 6133445555 para telefone ou 619911112222 para celular');
+  // }
 
   // Gerar o link do WhatsApp
   const whatsappLink = `https://api.whatsapp.com/send?phone=${numero}`;

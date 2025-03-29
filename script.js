@@ -8,7 +8,7 @@ async function adicionarProduto(event) {
     const usuario = localStorage.getItem('usuario');
     const usuarioObj = JSON.parse(usuario);
     const email = usuarioObj.email;
-    
+
     event.preventDefault();
     const nome = document.getElementById('nome').value;
     const descricao = document.getElementById('descricao').value;
@@ -18,11 +18,11 @@ async function adicionarProduto(event) {
     const dataHora = document.getElementById('dataHora').value;
 
     // Verificação de número com exatamente 13 dígitos
-        const numeroValido =/^\d{10,11}$/.test(numero);  
-        if (!numeroValido) {
-            alert('Número inválido! O número deve ter 10 ou 11 dígitos (ex: 6133445555 para telefone ou 619911112222 para celular');
-            return;
-        }
+    // const numeroValido = /^\d{10,11}$/.test(numero);
+    // if (!numeroValido) {
+    //     alert('Número inválido! O número deve ter 10 ou 11 dígitos (ex: 6133445555 para telefone ou 619911112222 para celular');
+    //     return;
+    // }
 
     const whatsappLink = `https://api.whatsapp.com/send?phone=${numero}`;
 
@@ -45,7 +45,47 @@ async function adicionarProduto(event) {
     } catch (error) {
         console.error('Erro:', error);
         alert('Erro ao se conectar ao servidor.');
-    }      
+    }
+}
+
+function abrirPopUp(produto_id) {
+    const popupExistente = document.getElementById('popup-confirmacao');
+    if (popupExistente) {
+        popupExistente.remove();
+    }
+
+    const popUp = document.createElement('div');
+    popUp.id = 'popup-confirmacao';
+    popUp.style.position = 'fixed';
+    popUp.style.top = '0';
+    popUp.style.left = '0';
+    popUp.style.width = '100vw';
+    popUp.style.height = '100vh';
+    popUp.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    popUp.style.display = 'flex';
+    popUp.style.justifyContent = 'center';
+    popUp.style.alignItems = 'center';
+    popUp.style.zIndex = '9999';
+
+    popUp.innerHTML = `
+      <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; max-width: 400px; width: 100%;">
+        <h5>Confirmar Venda</h5>
+        <p>Tem certeza que esse produto foi vendido?</p>
+        <button id="confirmarBtn" style="margin-right: 10px;" class="btn btn-danger">Sim</button>
+        <button id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
+      </div>
+    `;
+
+    document.body.appendChild(popUp);
+
+    document.getElementById('confirmarBtn').addEventListener('click', function () {
+        deletarProduto(produto_id);
+        popUp.remove();
+    });
+
+    document.getElementById('cancelarBtn').addEventListener('click', function () {
+        popUp.remove();
+    });
 }
 
 // Função para atualizar a lista de produtos (GET)
@@ -53,7 +93,7 @@ async function atualizarListaDeProdutos() {
     const usuario = localStorage.getItem('usuario');
     const usuarioObj = usuario ? JSON.parse(usuario) : null;
     const email = usuarioObj?.email ?? "nada";
-    
+
     try {
         const response = await fetch(`https://projeto-integrador-4.onrender.com/produtos/${email}`, {
             method: 'GET',
@@ -64,7 +104,7 @@ async function atualizarListaDeProdutos() {
 
         const produtos = await response.json();
 
-         // Ordena os produtos pela dataHora em ordem decrescente (do mais recente para o mais antigo)
+        // Ordena os produtos pela dataHora em ordem decrescente (do mais recente para o mais antigo)
         produtos.sort((a, b) => new Date(b.dataHora) - new Date(a.dataHora));
 
         // Limpar os produtos existentes
@@ -92,9 +132,9 @@ async function atualizarListaDeProdutos() {
                         <h5 id="precoProduto" class="card-title"> R$ ${produto.preco}</h5>
                         <div class="d-flex align-items-center mb-4">
                         <i class="bi bi-calendar-event me-2"></i>
-                        <span class="card-text">${new Date(produto.dataHora).toLocaleString('pt-BR', { 
-                        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' 
-                        })}</span>
+                        <span class="card-text">${new Date(produto.dataHora).toLocaleString('pt-BR', {
+                day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            })}</span>
                         </div>
                         <a href="${produto.whatsapp_link}" target="_blank" class="btn btn-primary w-75 align-self-center mb-2"> <i class="bi bi-whatsapp me-2"></i>WhatsApp</a>
                         ${usuarioLogado ? `
@@ -102,7 +142,7 @@ async function atualizarListaDeProdutos() {
                             <i class="bi bi-image me-2"></i>Adicionar Imagem
                             </button>
                             <button id="btnEditar" class="btn btn-warning w-75 align-self-center mb-2" onclick="carregarProdutoParaEdicao(${produto.id})"><i class="bi bi-pencil me-2"></i>Editar</button>
-                            <button id="btnDeletar" class="btn btn-danger w-75 align-self-center" onclick="deletarProduto(${produto.id})"><i class="bi bi-trash me-2"></i>Vendido</button>
+                            <button id="btnDeletar" class="btn btn-danger w-75 align-self-center" onclick="abrirPopUp(${produto.id})"><i class="bi bi-trash me-2"></i>Vendido</button>
                         ` : ''}
                     </div>
                 </div>
@@ -147,6 +187,25 @@ function carregarProdutoParaEdicao(id) {
         .catch(error => console.error('Erro ao carregar produto:', error));
 }
 
+document.getElementById('editNumero').addEventListener('input', function (e) {
+    let valor = e.target.value;
+
+    valor = valor.replace(/\D/g, '');
+
+    if (valor.length <= 2) {
+        valor = `(${valor}`;
+    } else if (valor.length <= 6) {
+        valor = `(${valor.slice(0, 2)}) ${valor.slice(2)}`;
+    } else if (valor.length <= 10) {
+        valor = `(${valor.slice(0, 2)}) ${valor.slice(2, 6)}-${valor.slice(6)}`;
+    } else {
+        valor = `(${valor.slice(0, 2)}) ${valor.slice(2, 7)}-${valor.slice(7, 11)}`;
+    }
+
+    e.target.value = valor.slice(0, 15);
+});
+
+
 // Função para editar produto (PUT)
 async function editarProduto(event) {
     event.preventDefault();
@@ -158,11 +217,11 @@ async function editarProduto(event) {
     const preco = document.getElementById('editPreco').value;
     const estabelecimento = document.getElementById('editEstabelecimento').value;
 
-    const numeroValido =/^\d{10,11}$/.test(numero);  
-        if (!numeroValido) {
-            alert('Número inválido! O número deve ter 10 ou 11 dígitos (ex: 6133445555 para telefone ou 619911112222 para celular');
-            return;
-        }
+    // const numeroValido = /^\d{10,11}$/.test(numero);
+    // if (!numeroValido) {
+    //     alert('Número inválido! O número deve ter 10 ou 11 dígitos (ex: 6133445555 para telefone ou 619911112222 para celular');
+    //     return;
+    // }
 
     try {
         const response = await fetch(`https://projeto-integrador-4.onrender.com/produtos/${id}`, {
@@ -200,7 +259,7 @@ async function deletarProduto(email) {
             await atualizarListaDeProdutos();
         } else {
             // Captura a mensagem de erro retornada pelo servidor
-            const errorData = await response.json(); 
+            const errorData = await response.json();
             console.error('Erro ao remover o produto:', errorData);
             alert(`Erro ao remover o produto: ${errorData.error || 'Erro desconhecido.'}`);
         }

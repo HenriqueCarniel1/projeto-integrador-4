@@ -30,12 +30,44 @@ async function login() {
 
 // Função de logout
 function logout() {
-  // Remove o nome e o ID do usuário do localStorage
-  localStorage.clear();
-  // Atualiza a interface para esconder o nome do usuário
-  exibirNomeUsuario(''); // Passa uma string vazia para esconder
-  alert('Você foi desconectado com sucesso!');
-  location.reload(); // Recarrega a página
+  const popupExistente = document.getElementById('popup-logout');
+  if (popupExistente) {
+    popupExistente.remove();
+  }
+
+  const popUp = document.createElement('div');
+  popUp.id = 'popup-logout';
+  popUp.style.position = 'fixed';
+  popUp.style.top = '0';
+  popUp.style.left = '0';
+  popUp.style.width = '100vw';
+  popUp.style.height = '100vh';
+  popUp.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  popUp.style.display = 'flex';
+  popUp.style.justifyContent = 'center';
+  popUp.style.alignItems = 'center';
+  popUp.style.zIndex = '9999';
+
+  popUp.innerHTML = `
+    <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; max-width: 400px; width: 100%;">
+      <h5>Deseja sair?</h5>
+      <p>Tem certeza que deseja fazer logout?</p>
+      <button id="confirmarLogout" class="btn btn-danger" style="margin-right: 10px;">Sim</button>
+      <button id="cancelarLogout" class="btn btn-secondary">Cancelar</button>
+    </div>
+  `;
+
+  document.body.appendChild(popUp);
+
+  document.getElementById('confirmarLogout').addEventListener('click', function () {
+    localStorage.clear();
+    exibirNomeUsuario('');
+    location.reload();
+  });
+
+  document.getElementById('cancelarLogout').addEventListener('click', function () {
+    popUp.remove();
+  });
 }
 
 // Função para exibir o nome do usuário
