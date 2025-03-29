@@ -1,0 +1,305 @@
+/* Estilos globais */
+* {
+    font-family: 'Montserrat', sans-serif; /* Define a Montserrat para todos os elementos */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 700; /* Aplica o peso bold (negrito) */
+}
+
+.produtos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Flexível e responsivo */
+    gap: 1rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ocupa toda a altura disponível */
+    min-height: 400px; /* Ajuste conforme necessário */
+}
+
+.card-body {
+    flex: 1; /* Garante que a card-body ocupe o máximo de espaço possível */
+}
+
+
+#precoProduto{
+    display: flex;
+    margin-bottom: 10%;
+    font-size: 1.5rem;
+}
+
+body {
+    font-family: 'Roboto', sans-serif; /* Alterado para Roboto para um visual mais moderno */
+    background-color: #f8f9fa, #5a5d5f;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Isso garante que não haja rolagem lateral */
+}
+
+#background{
+    display: flex;
+    justify-content: center;
+}
+
+#entrarDeslogar {
+    display: flex;
+    padding: 1rem; /* Aumenta o espaçamento interno para dar mais respiro */
+    border-radius: 12px; /* Aumenta o arredondamento das bordas */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0); /* Aumenta a sombra para um efeito mais elevado */
+    max-width: 250px; /* Limita a largura do contêiner para uma melhor proporção */
+    background-color: rgba(248, 249, 250, 0); /* Aplique uma cor de fundo com leve opacidade */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transições suaves para hover */
+    text-align: center; /* Centraliza o texto */
+}
+
+#entrarDeslogar:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Efeito de sombra ao passar o mouse */
+    transform: translateY(-2px); /* Levanta ligeiramente o contêiner ao passar o mouse */
+}
+
+
+#usuarioNome {
+    font-weight: 600; /* Aumenta o peso da fonte para maior ênfase */
+    font-size: 1.0rem; /* Tamanho da fonte */
+    border-radius: 4px;
+    text-align: center; /* Centraliza o texto */
+    padding: 0.8rem; /* Adiciona espaçamento interno */
+    color: #155724; /* Cor do texto (verde) */
+    background-color: rgba(5, 255, 5, 0.1); /* Fundo levemente colorido para destacar */
+    border: 1px solid rgba(92, 184, 92, 0.3); /* Borda sutil para dar definição */
+    margin-bottom: 1rem; /* Espaço abaixo do nome do usuário */
+    display: inline-block; /* Permite que o elemento acompanhe o tamanho do conteúdo */
+    width: auto; /* Ajusta a largura conforme necessário */
+    max-width: 100%; /* Garante que não exceda a largura do pai */
+    overflow-wrap: break-word; /* Permite quebra de palavra se necessário */
+    text-decoration: none; /* Remove o sublinhado */
+    color: inherit; /* Mantém a cor do texto original */
+    cursor: pointer; /* Define o cursor para pointer */
+    position: relative; /* Necessário para o tooltip */
+}
+
+#usuarioNome:hover::after {
+    content: "Ir para Meu Perfil"; /* Mensagem do tooltip */
+    position: absolute;
+    top: -30px; /* Posiciona o tooltip acima do nome */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(51, 51, 51, 0.8); /* Fundo mais transparente */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0; /* Inicialmente invisível */
+    transition: opacity 0.5s ease-in-out, top 0.5s ease-in-out; /* Fade-in e fade-out suave */
+    pointer-events: none; /* Evita que o mouse interfira */
+    z-index: 1;
+}
+
+/* Mostra o tooltip com suavidade ao passar o mouse */
+#usuarioNome:hover::after {
+    opacity: 1; /* Visível ao passar o mouse */
+    top: -35px; /* Leve movimento para cima */
+}
+
+.btn-success {
+    background-color: #28a745; /* Verde mais moderno */
+    border-color: #28a745; /* Mantém a cor da borda igual ao fundo */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Efeito hover mais escuro */
+    border-color: #1e7e34; /* Mantém a borda mais escura ao passar o mouse */
+}
+
+.formAddProduto{
+    display: none;
+}
+
+.add-product-btn {
+    display: flex;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: -4%;
+    color: #6c757d; /* Cor de texto cinza */
+    background-color: rgba(108, 117, 125, 0.1); /* Fundo cinza claro com transparência */
+    border: 1px solid #6c757d; /* Borda cinza */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.add-product-btn:hover {
+    background-color: rgba(108, 117, 125, 0.2); /* Fundo um pouco mais escuro no hover */
+    color: #495057; /* Cor do texto mais escura no hover */
+}
+
+
+.navbar {
+        background: linear-gradient(135deg, #00a84c, #00e9e9); /* Degradê do cabeçalho */
+        padding: 30px; /* Ajuste de padding se necessário */
+        color: white; /* Cor do texto para contraste */
+        text-align: center; /* Centraliza o conteúdo dentro do cabeçalho */
+        font-size: 5.2rem
+}
+
+.navbar-brand {
+    font-size: 3rem; /* Aumenta o tamanho da fonte */
+    color: transparent; /* Se quiser manter o efeito de degradê, mas mude a cor se necessário */
+    background: linear-gradient(45deg, #ffffff, #c6f7e4, #ffffff); /* Degradê para o texto */
+    -webkit-background-clip: text; /* Clipa o fundo ao texto */
+    background-clip: text; /* Clipa o fundo ao texto */
+    margin-left: 0; /* Ajuste conforme necessário */
+    padding-left: 0; /* Ajuste para mover para a esquerda */
+    padding-right: 20px; /* Ajuste o padding à direita se necessário */
+}
+
+.navbar-nav .nav-link {
+    color: transparent; 
+    background: linear-gradient(45deg, #ffffff, #23eea0, #ffffff); 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    text-decoration: none;
+    margin: 0 15px; 
+    font-size: 1.2rem; 
+    transition: color 0.3s ease; 
+}
+
+.navbar-nav .nav-link:hover {
+    color: transparent; 
+    background: linear-gradient(45deg, #c6f7e4, #ffffff); 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+}
+
+/* Remover o background no hover */
+.navbar-nav .nav-link:hover {
+    background: none; 
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+.container-fluid {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+
+/* Header Carousel */
+#carouselMain {
+    width: 100vw;
+    overflow: hidden; /* Oculta qualquer conteúdo que vá além da largura */
+    position: relative;
+    margin-top: -15px;
+}
+
+
+#carouselMain .carousel-item img {
+    transform: translateX(-10px); /* Move a imagem 10px para a esquerda */
+    width: 100vw; /* Mantém a largura ocupando toda a viewport */
+    height: 450px;
+    object-fit: cover;
+}
+  .carousel-inner {
+    width: 100%; 
+    padding: 0;/* Garante que o conteúdo interno do carrossel ocupe 100% da largura */
+  }
+
+/* Formulário */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 0; /* Torna as bordas quadradas */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Largura total do contêiner pai */
+    max-width: 400px; /* Largura máxima para o formulário */
+    margin: 0 auto; /* Centraliza o formulário */
+}
+
+form .form-control {
+    border: 1px solid #28a745;
+}
+#produtosContainer {
+    margin-bottom: 60px; /* Espaço entre os produtos e o formulário */
+}
+
+/* Alternativamente, você pode adicionar margem superior no formulário */
+form {
+    margin-top: 30px; /* Espaço acima do formulário */
+}
+/* Cards de produtos */
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    border-radius: 12px;
+     
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+
+.card img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-weight: bold; /* Deixa o título dos cards mais destacado */
+}
+
+.card-text {
+    color: #666; /* Cor sutil para o texto dos cards */
+}
+
+.card .btn-primary {
+    background-color: #28a745;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.card .btn-primary:hover {
+    background-color: #218838;
+}
+
+/* Rodapé */
+footer {
+    background: linear-gradient(135deg, #00a84c, #00e9e9);
+    padding: 20px 0;
+    text-align: center; /* Centraliza o conteúdo no rodapé */
+    font-size: 0.9rem; /* Diminui o tamanho da fonte no rodapé */
+    color: #333;
+    border-top: 1px solid #e7e7e7; /* Linha sutil separando o rodapé do conteúdo principal */
+}
+
+footer .text-muted {
+    color: #6c757d;
+}
+
+footer a {
+    color: #28a745;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #218838;
+}
+
+footer .row div {
+    padding: 10px 0;
+}
+
+.text-dark {
+    color: #333 !important;
+}
