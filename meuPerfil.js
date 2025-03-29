@@ -40,7 +40,7 @@ function atualizarConta() {
 
   localStorage.setItem('usuario', JSON.stringify(updatedUserData));
 
-  fetch(`http://localhost:3000/usuario/${email}`, {
+  fetch(`https://projeto-integrador-4.onrender.com/usuario/${email}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ function excluirConta() {
   if (confirm("Tem certeza de que deseja excluir sua conta?")) {
     const email = document.getElementById('email').value.trim();
 
-    fetch(`http://localhost:3000/usuario/${email}`, {
+    fetch(`https://projeto-integrador-4.onrender.com/usuario/${email}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

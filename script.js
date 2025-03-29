@@ -27,7 +27,7 @@ async function adicionarProduto(event) {
     const whatsappLink = `https://api.whatsapp.com/send?phone=${numero}`;
 
     try {
-        const response = await fetch(`http://localhost:3000/produtos/${email}`, {
+        const response = await fetch(`https://projeto-integrador-4.onrender.com/produtos/${email}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ async function atualizarListaDeProdutos() {
     const email = usuarioObj?.email ?? "nada";
     
     try {
-        const response = await fetch(`http://localhost:3000/produtos/${email}`, {
+        const response = await fetch(`https://projeto-integrador-4.onrender.com/produtos/${email}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ function abrirModalUpload(produtoId) {
 
 // Função para carregar os dados do produto no formulário de edição
 function carregarProdutoParaEdicao(id) {
-    fetch(`http://localhost:3000/produtos/edit/${id}`)
+    fetch(`https://projeto-integrador-4.onrender.com/produtos/edit/${id}`)
         .then(response => response.json())
         .then(produto => {
             document.getElementById('editNome').value = produto.nome;
@@ -165,7 +165,7 @@ async function editarProduto(event) {
         }
 
     try {
-        const response = await fetch(`http://localhost:3000/produtos/${id}`, {
+        const response = await fetch(`https://projeto-integrador-4.onrender.com/produtos/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ async function editarProduto(event) {
 // Função para deletar produto (DELETE)
 async function deletarProduto(email) {
     try {
-        const response = await fetch(`http://localhost:3000/produtos/${email}`, {
+        const response = await fetch(`https://projeto-integrador-4.onrender.com/produtos/${email}`, {
             method: 'DELETE',
         });
 

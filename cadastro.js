@@ -43,7 +43,7 @@ async function buscarCEP() {
         // localStorage.setItem('usuario', JSON.stringify(userData));
 
         try {
-            const response = await fetch('http://localhost:3000/usuario', {
+            const response = await fetch('https://projeto-integrador-4.onrender.com/usuario', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

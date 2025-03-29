@@ -6,7 +6,7 @@ if (email) {
   // Função para buscar o perfil do usuário com base no email
   async function buscarPerfil(email) {
     try {
-      const response = await fetch(`http://localhost:3000/perfil/${email}`, {
+      const response = await fetch(`https://projeto-integrador-4.onrender.com/perfil/${email}`, {
         method: 'GET',
       });
 
